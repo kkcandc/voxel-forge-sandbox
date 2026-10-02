@@ -79,7 +79,7 @@ const stand = world.findStand(vista.x, vista.z);
 const sunScratch = new THREE.Vector3();
 sky.direction(timeOfDay, sunScratch);
 const introPos = new THREE.Vector3(stand.x - sunScratch.x * 34, stand.y + 13, stand.z - sunScratch.z * 34);
-player.placeAt(stand.x, stand.y, stand.z, Math.atan2(-sunScratch.x, -sunScratch.z));
+player.placeAt(stand.x, stand.y, stand.z, Math.atan2(sunScratch.x, sunScratch.z));
 
 const outline = new THREE.LineSegments(
   new THREE.EdgesGeometry(new THREE.BoxGeometry(1.004, 1.004, 1.004)),

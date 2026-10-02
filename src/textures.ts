@@ -66,7 +66,7 @@ export function createAtlas(): { texture: THREE.CanvasTexture; canvas: HTMLCanva
     }
   };
 
-  speck(Tile.GrassTop, [92, 176, 78, 255], 28);
+  speck(Tile.GrassTop, [128, 206, 98, 255], 28);
   for (let i = 0; i < 36; i++) {
     const x = Math.floor(hash2(i, 2, 1) * 16);
     const y = Math.floor(hash2(i, 4, 2) * 14);
@@ -74,10 +74,10 @@ export function createAtlas(): { texture: THREE.CanvasTexture; canvas: HTMLCanva
     if (y + 1 < 16) put(Tile.GrassTop, x, y + 1, 64, 140, 58);
   }
 
-  speck(Tile.Dirt, [138, 92, 54, 255], 22);
-  speck(Tile.GrassSide, [138, 92, 54, 255], 18);
+  speck(Tile.Dirt, [176, 122, 74, 255], 22);
+  speck(Tile.GrassSide, [176, 122, 74, 255], 18);
   for (let y = 0; y < 4; y++) {
-    for (let x = 0; x < TILE; x++) jitter(Tile.GrassSide, x, y, [88, 168, 72, 255], 26);
+    for (let x = 0; x < TILE; x++) jitter(Tile.GrassSide, x, y, [118, 196, 92, 255], 26);
   }
   for (let x = 0; x < TILE; x++) {
     if (hash2(x, 8, 4) > 0.55) {
@@ -86,7 +86,7 @@ export function createAtlas(): { texture: THREE.CanvasTexture; canvas: HTMLCanva
     }
   }
 
-  speck(Tile.Stone, [142, 144, 150, 255], 16);
+  speck(Tile.Stone, [168, 170, 176, 255], 16);
   for (let i = 0; i < 14; i++) {
     const x = 1 + Math.floor(hash2(i, 1, 5) * 13);
     const y = 1 + Math.floor(hash2(i, 2, 5) * 13);
@@ -122,15 +122,15 @@ export function createAtlas(): { texture: THREE.CanvasTexture; canvas: HTMLCanva
     }
   }
 
-  speck(Tile.Leaves, [62, 148, 70, 255], 30, 0.9);
-  speck(Tile.Pine, [38, 108, 86, 255], 24, 0.9);
+  speck(Tile.Leaves, [96, 184, 98, 255], 30, 0.9);
+  speck(Tile.Pine, [64, 150, 112, 255], 24, 0.9);
 
   fill(Tile.Water, 58, 142, 196, 230);
   for (let y = 0; y < TILE; y++) {
     for (let x = 0; x < TILE; x++) {
       const wave = y === 4 || y === 5 || y === 11 || (y === 12 && hash2(x, y, 2) > 0.4);
       if (wave) put(Tile.Water, x, y, 170, 214, 232, 240);
-      else jitter(Tile.Water, x, y, [52, 132, 190, 225], 16);
+      else jitter(Tile.Water, x, y, [78, 168, 214, 225], 16);
     }
   }
 

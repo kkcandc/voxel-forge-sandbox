@@ -291,7 +291,7 @@ export class SkyRig {
     this.cloudMat.uniforms.uOpacity!.value = underwater ? 0 : 0.35 + day * 0.55;
 
     this.sun.color.copy(this.sunColor);
-    this.sun.intensity = smoothstep(-0.05, 0.18, sunH) * 4.2 + sunset * 0.8;
+    this.sun.intensity = smoothstep(-0.05, 0.18, sunH) * 7.2 + sunset * 1.6;
     this.sun.position.copy(camera.position).addScaledVector(sunDir, 40);
     this.sun.target.position.copy(camera.position);
     this.moon.intensity = night * 0.38;
@@ -301,8 +301,8 @@ export class SkyRig {
     this.hemiGround.copy(this.cGroundNight).lerp(this.cGroundDay, day);
     this.hemi.color.copy(this.hemiSky);
     this.hemi.groundColor.copy(this.hemiGround);
-    this.hemi.intensity = 0.55 + day * 0.85;
-    this.ambient.intensity = underwater ? 0.4 : 0.22 + day * 0.2;
+    this.hemi.intensity = 1.15 + day * 0.85;
+    this.ambient.intensity = underwater ? 0.7 : 0.72 + day * 0.28;
 
     if (showLife && night > 0.35 && !underwater) {
       for (let i = 0; i < 54; i++) {
@@ -332,6 +332,6 @@ export class SkyRig {
 
   exposure(atmo: Atmosphere, underwater: boolean): number {
     if (underwater) return 0.95;
-    return 1.22 + atmo.sunset * 0.05 - atmo.night * 0.28;
+    return 1.18 + atmo.sunset * 0.06 - atmo.night * 0.22;
   }
 }

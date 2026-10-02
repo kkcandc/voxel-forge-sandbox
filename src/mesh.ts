@@ -5,7 +5,7 @@ import type { ForgeMaterials } from "./materials";
 import { hash3 } from "./noise";
 import { tileUV } from "./textures";
 
-const AO = [0.66, 0.8, 0.91, 1];
+const AO = [0.78, 0.88, 0.95, 1];
 
 type Face = { n: [number, number, number]; corners: [number, number, number][] };
 

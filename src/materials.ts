@@ -9,6 +9,18 @@ export type ForgeMaterials = {
   time: { value: number };
 };
 
+const WRAP_FROM = "float dotNL = saturate( dot( geometryNormal, directLight.direction ) );";
+const WRAP_TO = "float dotNL = saturate( dot( geometryNormal, directLight.direction ) * 0.42 + 0.58 );";
+
+function wrapLambert(material: THREE.MeshLambertMaterial, key: string, tune?: (shader: { vertexShader: string; fragmentShader: string; uniforms: Record<string, { value: number }> }) => void): void {
+  material.customProgramCacheKey = () => key;
+  material.onBeforeCompile = (shader) => {
+    tune?.(shader);
+    const chunk = THREE.ShaderChunk.lights_lambert_pars_fragment.replace(WRAP_FROM, WRAP_TO);
+    shader.fragmentShader = shader.fragmentShader.replace("#include <lights_lambert_pars_fragment>", chunk);
+  };
+}
+
 export function createMaterials(atlas: THREE.Texture): ForgeMaterials {
   const time = { value: 0 };
 
@@ -16,6 +28,7 @@ export function createMaterials(atlas: THREE.Texture): ForgeMaterials {
     map: atlas,
     vertexColors: true,
   });
+  wrapLambert(opaque, "forge-opaque");
 
   const cutout = new THREE.MeshLambertMaterial({
     map: atlas,
@@ -23,8 +36,7 @@ export function createMaterials(atlas: THREE.Texture): ForgeMaterials {
     alphaTest: 0.45,
     side: THREE.DoubleSide,
   });
-  cutout.customProgramCacheKey = () => "forge-cutout-wind";
-  cutout.onBeforeCompile = (shader) => {
+  wrapLambert(cutout, "forge-cutout-wind", (shader) => {
     shader.uniforms.uTime = time;
     shader.vertexShader =
       "uniform float uTime;\n" +
@@ -38,7 +50,7 @@ export function createMaterials(atlas: THREE.Texture): ForgeMaterials {
         transformed.z += forgeWind * 0.028;
       `,
       );
-  };
+  });
 
   const glass = new THREE.MeshLambertMaterial({
     map: atlas,
@@ -51,6 +63,7 @@ export function createMaterials(atlas: THREE.Texture): ForgeMaterials {
     polygonOffsetFactor: -2,
     polygonOffsetUnits: -2,
   });
+  wrapLambert(glass, "forge-glass");
 
   const water = new THREE.MeshLambertMaterial({
     map: atlas,
@@ -62,8 +75,7 @@ export function createMaterials(atlas: THREE.Texture): ForgeMaterials {
     polygonOffsetFactor: -1,
     polygonOffsetUnits: -1,
   });
-  water.customProgramCacheKey = () => "forge-water-wave";
-  water.onBeforeCompile = (shader) => {
+  wrapLambert(water, "forge-water-wave", (shader) => {
     shader.uniforms.uTime = time;
     shader.vertexShader =
       "uniform float uTime;\n" +
@@ -78,7 +90,7 @@ export function createMaterials(atlas: THREE.Texture): ForgeMaterials {
         }
       `,
       );
-  };
+  });
 
   const glow = new THREE.MeshLambertMaterial({
     map: atlas,
@@ -87,6 +99,7 @@ export function createMaterials(atlas: THREE.Texture): ForgeMaterials {
     emissiveMap: atlas,
     emissiveIntensity: 0.72,
   });
+  wrapLambert(glow, "forge-glow");
 
   return { opaque, cutout, glass, water, glow, time };
 }
