@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Voxel Forge</title>
+    <meta
+      name="description"
+      content="Voxel Forge is a luminous, seed-grown block world you can shape in the browser."
+    />
+    <meta name="theme-color" content="#e7a27a" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&family=Outfit:wght@360;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <canvas id="view"></canvas>
+    <div id="vignette" aria-hidden="true"></div>
+
+    <section id="veil">
+      <div class="card">
+        <p class="eyebrow">A seed-grown sandbox</p>
+        <h1>Voxel Forge</h1>
+        <p class="lede">Hills, harbors, and a moving sun. Break a block. Leave a light on.</p>
+        <label class="seed-label" for="seed">Seed</label>
+        <div class="seed-row">
+          <input id="seed" name="seed" autocomplete="off" spellcheck="false" />
+          <button id="copy" type="button">Copy link</button>
+        </div>
+        <div class="seeds" id="seeds">
+          <button type="button" data-seed="amber-grove">amber-grove</button>
+          <button type="button" data-seed="quiet-tide">quiet-tide</button>
+          <button type="button" data-seed="lumen-field">lumen-field</button>
+        </div>
+        <div class="bar" aria-hidden="true"><span id="prog"></span></div>
+        <button id="enter" class="enter" type="button" disabled>Shaping the horizon…</button>
+        <ul class="hints">
+          <li><b>WASD</b> move · <b>Space</b> jump</li>
+          <li><b>Click</b> break · <b>Right click</b> place</li>
+          <li><b>F</b> fly · <b>[ ]</b> roll the sun</li>
+        </ul>
+      </div>
+    </section>
+
+    <div id="hud" class="hidden">
+      <header class="status">
+        <div>
+          <strong id="place">Meadow</strong>
+          <span id="facing">N</span>
+        </div>
+        <div class="dial" title="Time of day">
+          <span id="dial-pip"></span>
+        </div>
+        <div class="when-wrap">
+          <span id="when">Golden hour</span>
+          <span id="mode"></span>
+          <span id="fps"></span>
+        </div>
+      </header>
+      <div id="crosshair" aria-hidden="true"></div>
+      <p id="look-hint">Click to look around</p>
+      <footer class="dock">
+        <p id="target"></p>
+        <div id="hotbar"></div>
+        <p id="held">Grass</p>
+      </footer>
+      <p class="help">Shift sprint · double-tap Space to fly · P pauses the sun · R returns you home · 1–0 choose a block</p>
+    </div>
+
+    <div class="touch" id="touch">
+      <div class="stick" id="move-stick"><i></i></div>
+      <div class="look" id="look-pad"></div>
+      <div class="touch-actions">
+        <button type="button" id="btn-jump">Jump</button>
+        <button type="button" id="btn-down">Down</button>
+        <button type="button" id="btn-break">Break</button>
+        <button type="button" id="btn-place">Place</button>
+        <button type="button" id="btn-fly">Fly</button>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
