@@ -6,6 +6,8 @@ This is an original sandbox. It is not affiliated with any studio, and it does n
 
 ## Play
 
+The live world is at [voxel-forge-sandbox.vercel.app](https://voxel-forge-sandbox.vercel.app/?seed=amber-grove).
+
 Open the site, wait for the horizon to finish forming, then choose **Step in**.
 
 | Action | Control |
