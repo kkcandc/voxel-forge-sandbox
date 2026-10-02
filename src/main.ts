@@ -197,6 +197,11 @@ function frame(now: number): void {
   const atmo = sky.update(timeOfDay, camera, player.position, underwater, phase === "play", now / 1000);
   sky.applyFog(scene, atmo);
   renderer.toneMappingExposure = sky.exposure(atmo, underwater);
+  const sunLit = underwater ? 0.7 : Math.min(1, 0.62 + atmo.day * 0.38 + atmo.sunset * 0.08);
+  materials.opaque.color.setScalar(sunLit);
+  materials.cutout.color.setScalar(sunLit);
+  materials.glass.color.setScalar(Math.min(1, sunLit + 0.12));
+  materials.water.color.setScalar(Math.min(1, sunLit + 0.06));
   particles.update(dt);
 
   const sample = sampleTerrain(Math.floor(focus.x), Math.floor(focus.z), seed);

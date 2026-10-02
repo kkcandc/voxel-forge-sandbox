@@ -235,7 +235,9 @@ export function buildColumnGroup(
           const corners = face.corners.map(
             (c) => [lx + c[0], y + c[1], lz + c[2]] as [number, number, number],
           );
-          pushQuadLocal(dest, corners, face.n, origin, faceTile(id, face.n[1]), rgb, aos);
+          const faceLight = face.n[1] > 0 ? 1 : face.n[1] < 0 ? 0.72 : 0.86;
+          const shaded: [number, number, number] = [rgb[0] * faceLight, rgb[1] * faceLight, rgb[2] * faceLight];
+          pushQuadLocal(dest, corners, face.n, origin, faceTile(id, face.n[1]), shaded, aos);
         }
       }
     }
